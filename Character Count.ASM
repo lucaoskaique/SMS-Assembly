@@ -1,3 +1,12 @@
+;Utilizando a linguagem Assembly do SMS, escrever um programa para realizar a contagem de caracteres iguais a um caractere escolhido. O programa deve funcionar da seguinte maneira:
+;-    O programa deverá ler caracteres do teclado. O programa só deve aceitar caracteres de A à Z (maiúsculos) e de a à z (minúsculos). Todo outro caractere deve ser ignorado.
+;-    O programa deve imprimir o caractere lido. Se o caractere lido for minúsculo, o programa deve transformar em maiúsculo antes da impressão (só caracteres maiúsculos serão mostrados).
+;-    A leitura deve continuar até a tecla Enter ser pressionada (0D em hexa) ou até preencher as 4 linhas da tela.
+;-    Após o fim da leitura, um único novo caractere deve ser lido, o programa deve esperar até que um caractere entre A-Z ou a-z seja digitado, ignorando qualquer outra digitação. (Este caractere não será mostrado)
+;-    Depois da digitação do novo caractere, o programa deve contar quantos caracteres iguais ao último foram digitados anteriormente (independentemente de maiúsculo ou minúsculo)
+;-    O programa também deve limpar a tela, apresentar a letra e o resultado da contagem encontrada (lembre-se que está contagem nunca ultrapassará 64, já que será o número máximo de caracteres armazenados).
+
+
 CLO
         mov bl,c0
 start: 			;RECEBE ENTRADA DO TECLADO
@@ -6,12 +15,12 @@ start: 			;RECEBE ENTRADA DO TECLADO
 	JZ caractere
 	CMP AL, 0d	;COMPARA SE A LETRA DIGITADA FOI ENTER
 	JZ caractere
-        CMP AL, 7a	;COMPARA SE � MENOR QUE 'z'
+        CMP AL, 7a	;COMPARA SE É MENOR QUE 'z'
 	JS minuscula
 	JMP start	
 
 minuscula:
-	CMP al, 61	;COMPARA DE � MENOR QUE 'a'
+	CMP al, 61	;COMPARA DE É MENOR QUE 'a'
 	JS maiuscula	;SE SIM, VAI PARA ROTINA DE MAIUSCULA
 	sub al, 20	;SUBTRAI PARA IMPRIMIR NA TELA A LETRA MINUSCULA EM MAIUSCULA
 	mov [bl], al
@@ -19,9 +28,9 @@ minuscula:
 	JMP start
 
 maiuscula:
-	CMP al, 5b	;COMPARA SE � MENOR QUE '['
+	CMP al, 5b	;COMPARA SE É MENOR QUE '['
 	JNS start
-	CMP al, 41	;COMPARA SE � MENOR QUE 'A'
+	CMP al, 41	;COMPARA SE É MENOR QUE 'A'
 	JS start
 	mov [bl], al
 	inc bl
@@ -37,9 +46,9 @@ caractere:
 	JMP rotina
 
 MAI:
-	CMP al, 5b	;COMPARA SE � MENOR QUE '['
+	CMP al, 5b	;COMPARA SE É MENOR QUE '['
 	JNS caractere
-	CMP al, 41	;COMPARA SE � MENOR QUE 'A'
+	CMP al, 41	;COMPARA SE É MENOR QUE 'A'
 	JS caractere
 	JMP rotina
 
